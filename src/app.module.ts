@@ -20,7 +20,6 @@ const database: TypeOrmModuleOptions = {
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({ useFactory: () => database }),
-    TypeOrmModule.forFeature([User]),
     UsersModule,
   ],
   controllers: [AppController],
