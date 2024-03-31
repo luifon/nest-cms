@@ -4,6 +4,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { User } from './entities/user/user.entity';
 import { UsersModule } from './entities/user/user.module';
+import { PostModule } from './entities/post/post.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { MongoConfigService } from './config/mongo-config.service';
 
 const database: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -20,7 +23,11 @@ const database: TypeOrmModuleOptions = {
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({ useFactory: () => database }),
+    MongooseModule.forRootAsync({
+      useClass: MongoConfigService,
+    }),
     UsersModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],
